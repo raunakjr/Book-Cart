@@ -59,7 +59,9 @@ router.post(
   upload.single("picture"),
   async (req, res) => {
     const { fullname, contact } = req.body;
-
+    if (!req.file) {
+      return res.status(400).send("No file uploaded.");
+    }
     await userModel.findOneAndUpdate(
       { _id: req.params.id },
       { fullname, contact, picture: req.file.buffer }
