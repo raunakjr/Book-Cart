@@ -22,14 +22,20 @@
       <a href="/admininfo" class="hover:text-green-400 transition duration-300"
         >🔧 Admin</a
       >
+
+      <% if (!isAuthenticated) { %>
+      <!-- If no token, show Login -->
       <a href="/" class="hover:text-red-400 transition duration-300"
         >🔑 Login</a
       >
+      <% } else { %>
+      <!-- If token exists, show Logout -->
       <a
         href="/users/logout"
         class="hover:text-yellow-400 transition duration-300"
         >🚪 Logout</a
       >
+      <% } %>
     </div>
 
     <!-- Mobile Menu Button -->
@@ -59,15 +65,15 @@
       >👤 My Account</a
     >
     <a href="/admininfo" class="block py-2 hover:text-green-400">🔧 Admin</a>
+
+    <% if (!isAuthenticated) { %>
+    <!-- If no token, show Login -->
     <a href="/" class="block py-2 hover:text-red-400">🔑 Login</a>
+    <% } else { %>
+    <!-- If token exists, show Logout -->
     <a href="/users/logout" class="block py-2 hover:text-yellow-400"
       >🚪 Logout</a
     >
+    <% } %>
   </div>
 </header>
-
-<script>
-  document.getElementById("menu-toggle").addEventListener("click", function () {
-    document.getElementById("mobile-menu").classList.toggle("hidden");
-  });
-</script>

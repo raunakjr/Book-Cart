@@ -36,6 +36,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser());
 
+// Middleware to pass the token status to EJS views
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = !!req.cookies.token; // Set isAuthenticated as true if token exists
+  next();
+});
 app.use("/", homeRouter);
 app.use("/owners", ownerRouter);
 app.use("/users", usersRouter);

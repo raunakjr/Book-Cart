@@ -59,7 +59,7 @@ router.post("/login", async (req, res) => {
       res.cookie("token", token);
 
       req.flash("success", "Login successful!");
-      return res.redirect("/");
+      return res.redirect("/shop");
     } else {
       req.flash("error", "Wrong password or email.");
       return res.redirect("/");
