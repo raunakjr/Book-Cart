@@ -2,6 +2,7 @@ const express = require("express");
 const productModel = require("../models/product.model");
 const isLoggedIn = require("../middlewares/isLoggedIn");
 const router = express.Router();
+const upload = require("../config/multer-config");
 const userModel = require("../models/user.model");
 router.get("/", (req, res) => {
   let error = req.flash("error");
@@ -47,4 +48,24 @@ router.get("/myaccount", isLoggedIn, async (req, res) => {
 router.get("/admininfo", (req, res) => {
   res.render("admininfo");
 });
+
+router.get("/update-profile", isLoggedIn, async (req, res) => {
+  const user = await userModel.findOne({ email: req.user.email });
+  res.render("update-account", { user });
+});
+
+router.post(
+  "/update-profile/:id",
+  upload.single("picture"),
+  async (req, res) => {
+    const { fullname, contact } = req.body;
+
+    await userModel.findOneAndUpdate(
+      { _id: req.params.id },
+      { fullname, contact, picture: req.file.buffer }
+    );
+
+    res.redirect("/myaccount");
+  }
+);
 module.exports = router;
