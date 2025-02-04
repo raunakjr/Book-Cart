@@ -17,6 +17,7 @@ router.get("/wishlist/:id", isLoggedIn, async (req, res) => {
   const user = await userModel.findOne({ email: req.user.email });
   user.cart.push(req.params.id);
   await user.save();
+  req.flash("success", "Product added to cart! 🛒");
   res.redirect("/shop");
 });
 
@@ -34,12 +35,16 @@ router.post("/cart/remove/:id", isLoggedIn, async (req, res) => {
   );
   user.cart.splice(productIndex, 1);
   await user.save();
-
+  req.flash("success", "Product removed from cart! 🛒");
   res.redirect("/cart");
 });
 
 router.get("/myaccount", isLoggedIn, async (req, res) => {
   const user = await userModel.findOne({ email: req.user.email });
   res.render("myaccount", { user });
+});
+
+router.get("/admininfo", (req, res) => {
+  res.render("admininfo");
 });
 module.exports = router;

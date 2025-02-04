@@ -9,10 +9,10 @@ const PORT = process.env.PORT || 3000;
 app.use(flash());
 app.use(
   session({
-    secret: "abcdef", // Change this to a secure random string
+    secret: "abcdef",
     resave: false,
     saveUninitialized: true,
-    cookie: { maxAge: 60000 }, // Optional: Set session expiry time
+    cookie: { maxAge: 60000 },
   })
 );
 app.use((req, res, next) => {

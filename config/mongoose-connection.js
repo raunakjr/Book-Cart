@@ -1,16 +1,16 @@
-require("dotenv").config(); // Load .env variables
+require("dotenv").config();
 
 const mongoose = require("mongoose");
 const dbgr = require("debug")("development:mongoose");
 
-const MONGODB_URI = process.env.MONGODB_URI; // Get MongoDB URI from .env
+const MONGODB_URI = process.env.MONGODB_URI;
 
 if (!MONGODB_URI) {
   throw new Error("❌ MONGODB_URI is not defined in the .env file!");
 }
 
 mongoose
-  .connect(`${MONGODB_URI}/BookDB`) // No need for extra options
+  .connect(`${MONGODB_URI}/BookDB`)
   .then(() => dbgr("✅ MongoDB connected successfully!"))
   .catch((err) => dbgr("❌ MongoDB connection error:", err));
 
